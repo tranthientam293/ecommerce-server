@@ -3,13 +3,13 @@ import express from 'express'
 import exitHook from 'async-exit-hook'
 import { closeDatabase, connectDatabase } from '~/config/database'
 import { env } from '~/config/environments'
+import { APIs_V1 } from '~/routes/v1/'
 
 function startServer() {
   const app = express()
+  app.use(express.json())
 
-  app.get('/', function (_, res) {
-    res.send('<h1>Hello, world</h1>')
-  })
+  app.use('/api/v1', APIs_V1)
 
   app.listen(env.APP_PORT, env.APP_HOST, () => {
     console.log(`server is running on at http://${env.APP_HOST}:${env.APP_PORT}`)
