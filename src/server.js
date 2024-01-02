@@ -1,33 +1,34 @@
-/* eslint-disable no-console */
-import express from 'express'
-import exitHook from 'async-exit-hook'
-import { closeDatabase, connectDatabase } from '~/config/database'
-import { env } from '~/config/environments'
+import express from "express";
+import exitHook from "async-exit-hook";
+import { closeDatabase, connectDatabase } from "~/config/database";
+import { env } from "~/config/environments";
+import { APIs_V1 } from "~/routes/v1/";
 
 function startServer() {
-  const app = express()
+  const app = express();
+  app.use(express.json());
 
-  app.get('/', function (_, res) {
-    res.send('<h1>Hello, world</h1>')
-  })
+  app.use("/api/v1", APIs_V1);
 
   app.listen(env.APP_PORT, env.APP_HOST, () => {
-    console.log(`server is running on at http://${env.APP_HOST}:${env.APP_PORT}`)
-  })
+    console.log(
+      `server is running on at http://${env.APP_HOST}:${env.APP_PORT}`,
+    );
+  });
 
   exitHook(() => {
-    closeDatabase()
-  })
+    closeDatabase();
+  });
 }
 
 connectDatabase()
   .then(() => {
-    console.log('Database connected!')
+    console.log("Database connected!");
   })
   .then(() => {
-    startServer()
+    startServer();
   })
   .catch((err) => {
-    console.error(err)
-    process.exit(0)
-  })
+    console.error(err);
+    process.exit(0);
+  });
