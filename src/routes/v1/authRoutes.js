@@ -6,7 +6,7 @@ import { authValidation } from '~/validations/authValidation'
 const Router = express.Router()
 
 Router.route('/')
-  .get((_, res) => {
+  .get((req, res) => {
     res.status(StatusCodes.OK).json({ message: 'Note: API auth' })
   })
   .post(authValidation.createUser, authController.createNew)

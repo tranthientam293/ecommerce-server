@@ -1,9 +1,10 @@
+/* eslint-disabled no-unused-vars */
 import Joi from 'joi'
 import { StatusCodes } from 'http-status-codes'
 import { REGEX_PATTERN } from '~/config'
 import ApiError from '~/utils/ApiError'
 
-const createUser = async (req, _, next) => {
+const createUser = async (req, res, next) => {
   const correctCondition = Joi.object({
     userName: Joi.string().required().min(3).max(20).trim().strict(),
     password: Joi.string()

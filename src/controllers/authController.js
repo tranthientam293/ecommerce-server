@@ -1,12 +1,12 @@
 import { StatusCodes } from 'http-status-codes'
 // import ApiError from '~/utils/ApiError'
+import { authService } from '~/services/authServices'
 
 const createNew = async (req, res, next) => {
   try {
-    // throw new ApiError(StatusCodes.BAD_GATEWAY, 'api next errors')
-    res.status(StatusCodes.OK).json({
-      message: 'Login successfully',
-    })
+    const createNewUser = await authService.createNew(req.body)
+    res.status(StatusCodes.CREATED).json(createNewUser)
+
   } catch (error) {
     next(error)
   }
