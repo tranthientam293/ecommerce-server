@@ -1,4 +1,5 @@
 /* eslint-disable no-useless-catch */
+
 const createNew = async (reqBody) => {
   try {
     const user = {

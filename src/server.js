@@ -15,7 +15,6 @@ function startServer() {
   // handle error
   app.use(errorHandlingMiddleware)
 
-
   app.listen(env.APP_PORT, env.APP_HOST, () => {
     console.log(
       `server is running on at http://${env.APP_HOST}:${env.APP_PORT}`
